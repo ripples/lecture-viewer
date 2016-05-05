@@ -1,0 +1,9 @@
+[submodule "lv-server"]
+	path = lv-server
+	url = https://github.com/GaryPWhite/lv-server.git
+[submodule "lv-client"]
+	path = lv-client
+	url = https://github.com/ripples/lv-client.git
+[submodule "lv-proxy"]
+	path = lv-proxy
+	url = https://github.com/GaryPWhite/lv-proxy.git

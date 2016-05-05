@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  lv-client:
+    build: lv-client/
+    env_file: lecture-viewer.env
+
+  lv-proxy:
+    build: lv-proxy/
+    env_file: lecture-viewer.env
+    depends_on:
+      - lv-client
+      - lv-server
+    ports:
+      - "80:80"
+
+  lv-server:
+    build: lv-server/
+    env_file: lecture-viewer.env
+    volumes:
+      - ${MEDIA_DIR}:/media
