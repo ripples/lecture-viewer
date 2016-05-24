@@ -67,3 +67,15 @@ When a new submodule is added to the system and you would like to pull it onto y
 git submodule init
 git submodule update --recursive
 ```
+
+
+###### I get the following warning
+```
+WARNING: The MEDIA_DIR variable is not set. Defaulting to a blank string.
+```
+
+Create a MEDIA_DIR environment variable
+for OSX and Linux put this in your .bashrc or equivalent shell rc
+```
+export MEDIA_DIR=~/.lv-media
+```
