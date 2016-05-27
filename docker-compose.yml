@@ -5,6 +5,14 @@ services:
     build: lv-client/
     env_file: lecture-viewer.env
 
+  lv-db:
+    build: lv-db/
+    env_file: lecture-viewer.env
+    networks:
+      - database
+    volumes:
+      - mysql-data:/var/lib/mysql
+
   lv-proxy:
     build: lv-proxy/
     env_file: lecture-viewer.env
@@ -13,20 +21,22 @@ services:
       - lv-server
     ports:
       - "8080:80"
-      - "5858:5858"
 
   lv-server:
     build: lv-server/
     env_file: lecture-viewer.env
-    links:
-      - lv-db:db
+    networks:
+      - default
+      - database
+    depends_on:
+      - lv-db
     volumes:
       - ${MEDIA_DIR}:/media
 
-  lv-db:
-    build: lv-db/
-    env_file: lecture-viewer.env
-    ports:
-      - "3307:3306"
-    volumes:
-      - ${DB_DIR}:/var/lib/mysql
+networks:
+  database:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
