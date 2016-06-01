@@ -24,7 +24,7 @@ services:
       - lv-client
       - lv-server
     ports:
-      - "8080:80"
+      - "80:80"
 
   lv-server:
     build: lv-server/
