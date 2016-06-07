@@ -1,6 +1,6 @@
 # To Run:
 # docker-compose -f docker-compose.yml -f docker-compose-development.yml build
-# docker-compose -f docker-compose.yml -f docker-compose-development.yml run
+# docker-compose -f docker-compose.yml -f docker-compose-development.yml up
 
 # Important Notes:
 # - lv-client only keeps /public/javascripts up to date.
