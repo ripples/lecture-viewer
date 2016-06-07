@@ -2,23 +2,25 @@ version: '2'
 
 services:
   lv-client:
-    build: lv-client/
+    build: lv-client
     env_file: lecture-viewer.env
 
   lv-db:
-    build: lv-db/
+    build: lv-db
     env_file: lecture-viewer.env
     networks:
       - database
     volumes:
       - mysql-data:/var/lib/mysql
 
-  lv-media:
-    build: lv-media/
-    env_file: lecture-viewer.env
+  # lv-media:
+  #   build: lv-media
+  #   env_file: lecture-viewer.env
+  #   volumes:
+  #     - ${MEDIA_DIR}:/media
 
   lv-proxy:
-    build: lv-proxy/
+    build: lv-proxy
     env_file: lecture-viewer.env
     depends_on:
       - lv-client
@@ -27,14 +29,14 @@ services:
       - "80:80"
 
   lv-server:
-    build: lv-server/
+    build: lv-server
     env_file: lecture-viewer.env
     networks:
       - default
       - database
     depends_on:
       - lv-db
-      - lv-media
+      # - lv-media
     volumes:
       - ${MEDIA_DIR}:/media
 

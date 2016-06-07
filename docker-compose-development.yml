@@ -1,0 +1,22 @@
+# To Run:
+# docker-compose -f docker-compose.yml -f docker-compose-development.yml build
+# docker-compose -f docker-compose.yml -f docker-compose-development.yml run
+
+# Important Notes:
+# - lv-client only keeps /public/javascripts up to date.
+# - lv-server uses nodemon in "legacy mode", aka "-L". This is resource
+#   intensive however required for boot2docker users (non-linux).
+
+version: '2'
+
+services:
+  lv-client:
+    command: npm run bundle && npm run start
+    volumes:
+      - ./lv-client/public/javascripts:/src/public/javascripts
+
+  lv-server:
+    build:
+      dockerfile: Dockerfile-development
+    volumes:
+      - ./lv-server:/src
