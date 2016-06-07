@@ -36,7 +36,7 @@ Everything will be exposed on port 80!
 We made a development docker-compose file that can be used in some development scenarios. It will keep the ```lv-client/public/javascripts``` folder and all of ```lv-server``` up to date. To use this environment, run the following commands:
 ```
 docker-compose -f docker-compose.yml -f docker-compose-development.yml build
-docker-compose -f docker-compose.yml -f docker-compose-development.yml run
+docker-compose -f docker-compose.yml -f docker-compose-development.yml up
 ```
 Everything will be exposed on port 80!
 
