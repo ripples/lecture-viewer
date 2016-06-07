@@ -7,7 +7,7 @@ To get started, you first need to install docker. Instructions for installing do
 ##### Clone Recursively
 This repo uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). In order to clone everything correctly, you have to clone recursively:
 ```
-git clone --recursive https://github.com/stanleyrya/lecture-viewer.git
+git clone --recursive https://github.com/ripples/lecture-viewer.git
 cd lecture-viewer
 ```
 More useful commands for git submodules can be found in [Repository Maintenence](#repository-maintenance) below.
