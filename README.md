@@ -75,3 +75,19 @@ When a new submodule is added to the system and you would like to pull it onto y
 git submodule init
 git submodule update --recursive
 ```
+
+###### "Help! When I try to build with docker, I get a `no space left on device` error!"
+After a while docker can become cluttered with old containers, images, and volumes. You can remove some manually to get unblocked, or you can use some of the following commands to remove them in bulk. Be careful not to remove anything important!
+```
+# delete stopped containers
+docker ps -a | awk '/Exited/ {print $1}' | xargs docker rm -v
+
+# remove dangling images
+docker rmi $(docker images -f "dangling=true" -q)
+
+# remove all images
+docker rmi $(docker images -q)
+
+# remove dangling volumes
+docker volume rm $(docker volume ls -qf dangling=true)
+```
