@@ -10,3 +10,6 @@
 [submodule "lv-db"]
 	path = lv-db
 	url = https://github.com/ripples/lv-db.git
+[submodule "lv-media"]
+	path = lv-media
+	url = https://github.com/ripples/lv-media.git

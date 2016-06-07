@@ -13,6 +13,10 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
+  lv-media:
+    build: lv-media/
+    env_file: lecture-viewer.env
+
   lv-proxy:
     build: lv-proxy/
     env_file: lecture-viewer.env
@@ -20,7 +24,7 @@ services:
       - lv-client
       - lv-server
     ports:
-      - "8080:80"
+      - "80:80"
 
   lv-server:
     build: lv-server/
@@ -30,6 +34,7 @@ services:
       - database
     depends_on:
       - lv-db
+      - lv-media
     volumes:
       - ${MEDIA_DIR}:/media
 
