@@ -24,11 +24,19 @@ SIGNING_KEY=YOUR_VALUE_HERE
 
 If you decide to run any services manually, make sure to use the same ```lecture-viewer.env``` file.
 
-### To Run
+### To Run (Production)
 After your environment is all set up, simply run the following commands:
 ```
 docker-compose build
 docker-compose up
+```
+Everything will be exposed on port 80!
+
+### To Run (Development)
+We made a development docker-compose file that can be used in some development scenarios. It will keep the ```lv-client/public/javascripts``` folder and all of ```lv-server``` up to date. To use this environment, run the following commands:
+```
+docker-compose -f docker-compose.yml -f docker-compose-development.yml build
+docker-compose -f docker-compose.yml -f docker-compose-development.yml run
 ```
 Everything will be exposed on port 80!
 
@@ -66,16 +74,4 @@ When a new submodule is added to the system and you would like to pull it onto y
 ```
 git submodule init
 git submodule update --recursive
-```
-
-
-###### I get the following warning
-```
-WARNING: The MEDIA_DIR variable is not set. Defaulting to a blank string.
-```
-
-Create a MEDIA_DIR environment variable
-for OSX and Linux put this in your .bashrc or equivalent shell rc
-```
-export MEDIA_DIR=~/.lv-media
 ```
