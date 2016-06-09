@@ -11,7 +11,17 @@ version: '2'
 
 services:
   lv-client:
-    command: npm run bundle && npm run start
+    build:
+      dockerfile: Dockerfile-development
+    volumes:
+      - ./lv-client/public/javascripts:/src/public/javascripts
+
+  lv-client-bundle:
+    build:
+      context: lv-client
+      dockerfile: Dockerfile-development
+    command: npm run bundle
+    env_file: lecture-viewer.env
     volumes:
       - ./lv-client/public/javascripts:/src/public/javascripts
 
