@@ -13,11 +13,11 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
-  # lv-media:
-  #   build: lv-media
-  #   env_file: lecture-viewer.env
-  #   volumes:
-  #     - ${MEDIA_DIR}:/media
+  lv-media:
+    build: lv-media
+    env_file: lecture-viewer.env
+    volumes:
+      - ${MEDIA_DIR}:/media
 
   lv-proxy:
     build: lv-proxy
@@ -36,7 +36,7 @@ services:
       - database
     depends_on:
       - lv-db
-      # - lv-media
+      - lv-media
     volumes:
       - ${MEDIA_DIR}:/media
 
