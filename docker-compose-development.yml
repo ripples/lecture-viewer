@@ -20,7 +20,7 @@ services:
     build:
       context: lv-client
       dockerfile: Dockerfile-development
-    command: npm run bundle
+    command: npm run bundle-dev
     env_file: lecture-viewer.env
     volumes:
       - ./lv-client/public/javascripts:/src/public/javascripts
@@ -30,3 +30,9 @@ services:
       dockerfile: Dockerfile-development
     volumes:
       - ./lv-server:/src
+
+  lv-media:
+    build:
+      dockerfile: Dockerfile-development
+    volumes:
+      - ./lv-media:/src
