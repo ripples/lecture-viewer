@@ -39,8 +39,6 @@ services:
     depends_on:
       - lv-db
       - lv-media
-    volumes:
-      - ${MEDIA_DIR}:/media
 
 networks:
   database:
