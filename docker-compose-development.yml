@@ -14,16 +14,16 @@ services:
     build:
       dockerfile: Dockerfile-development
     volumes:
-      - ./lv-client/public/javascripts:/src/public/javascripts
+      - ./lv-client:/src
 
-  lv-client-bundle:
+  lv-client-watch:
     build:
       context: lv-client
       dockerfile: Dockerfile-development
-    command: npm run bundle-dev
+    command: npm run watch
     env_file: lecture-viewer.env
     volumes:
-      - ./lv-client/public/javascripts:/src/public/javascripts
+      - ./lv-client:/src
 
   lv-server:
     build:
