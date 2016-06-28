@@ -27,6 +27,8 @@ services:
       - lv-server
     ports:
       - "80:80"
+    volumes:
+      - ${MEDIA_DIR}:/media
 
   lv-server:
     build: lv-server
@@ -37,8 +39,6 @@ services:
     depends_on:
       - lv-db
       - lv-media
-    volumes:
-      - ${MEDIA_DIR}:/media
 
 networks:
   database:
