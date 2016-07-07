@@ -15,21 +15,27 @@ services:
       dockerfile: Dockerfile-development
     volumes:
       - ./lv-client:/src
+      # So we don't share node modules
+      - /src/node_modules
+    privileged: true
 
   lv-client-watch:
     build:
-      context: lv-client
+      context: lv-client/
       dockerfile: Dockerfile-development
     command: npm run watch
     env_file: lecture-viewer.env
     volumes:
       - ./lv-client:/src
+    privileged: true
 
   lv-server:
     build:
       dockerfile: Dockerfile-development
     volumes:
       - ./lv-server:/src
+      # So we don't share node modules
+      - /src/node_modules
 
   lv-media:
     build:
