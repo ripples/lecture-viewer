@@ -12,12 +12,14 @@ services:
       - database
     volumes:
       - mysql-data:/var/lib/mysql
+    privileged: true
 
   lv-media:
     build: lv-media
     env_file: lecture-viewer.env
     volumes:
-      - ${MEDIA_DIR}:/media
+      - ${HOST_MEDIA_DIR}:/${IMAGE_MEDIA_DIR}
+    privileged: true
 
   lv-proxy:
     build: lv-proxy
@@ -28,7 +30,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ${MEDIA_DIR}:/media
+      - ${HOST_MEDIA_DIR}:/${IMAGE_MEDIA_DIR}
+    privileged: true
 
   lv-server:
     build: lv-server
@@ -39,6 +42,8 @@ services:
     depends_on:
       - lv-db
       - lv-media
+    privileged: true
+
 
 networks:
   database:

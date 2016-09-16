@@ -1,4 +1,5 @@
 # env file
 lecture-viewer.env
 .idea
+*.iml
 npm-debug.log
