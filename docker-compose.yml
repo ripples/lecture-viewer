@@ -3,9 +3,12 @@ version: '2'
 services:
   lv-client:
     build: lv-client
-
+    env_file:
+      - .env
   lv-db:
     build: lv-db
+    env_file:
+      - .env
     networks:
       - database
     volumes:
@@ -14,12 +17,16 @@ services:
 
   lv-media:
     build: lv-media
+    env_file:
+      - .env
     volumes:
       - ${HOST_MEDIA_DIR}:/${IMAGE_MEDIA_DIR}
     privileged: true
 
   lv-proxy:
     build: lv-proxy
+    env_file:
+      - .env
     depends_on:
       - lv-client
       - lv-server
@@ -31,6 +38,8 @@ services:
 
   lv-server:
     build: lv-server
+    env_file:
+      - .env
     networks:
       - default
       - database
