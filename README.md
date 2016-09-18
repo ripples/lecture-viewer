@@ -13,16 +13,9 @@ cd lecture-viewer
 More useful commands for git submodules can be found in [Repository Maintenence](#repository-maintenance) below.
 
 ##### Environment File
-This application uses environment variables to make it easier to deploy at different locations. You will need to create a file named ```lecture-viewer.env``` in this directory for deployment to work properly. The following environment variables are used throughout the application:
+This application uses environment variables to make it easier to deploy at different locations. You will need to create a file named `.env` in this directory for deployment to work properly. An example file is provided at `example.env`.
 
-- ```SIGNING_KEY``` - The key used to sign authentication tokens.
-
-Below is an example of what your ```lecture-viewer.env``` should look like using the above environment variables. ```YOUR_VALUE_HERE``` is simply a placeholder for your own value.
-```
-SIGNING_KEY=YOUR_VALUE_HERE
-```
-
-If you decide to run any services manually, make sure to use the same ```lecture-viewer.env``` file.
+If you decide to run any services manually, make sure to use the same `.env` file.
 
 ### To Run (Production)
 After your environment is all set up, simply run the following commands:
