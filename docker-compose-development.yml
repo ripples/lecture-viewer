@@ -24,7 +24,6 @@ services:
       context: lv-client/
       dockerfile: Dockerfile-development
     command: npm run watch
-    env_file: lecture-viewer.env
     volumes:
       - ./lv-client:/src
     privileged: true
