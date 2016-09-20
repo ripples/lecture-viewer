@@ -2,7 +2,8 @@
 
 ### Getting Started
 ##### Docker
-To get started, you first need to install docker. Instructions for installing docker can be found [here](https://docs.docker.com/engine/installation/). After you have docker installed, you will need to install docker compose. Follow the instructions [here](https://docs.docker.com/compose/install/).
+To get started, you first need to install docker. Instructions for installing docker can be found [here](https://docs.docker.com/engine/installation/).
+After you have docker installed, you will need to install docker compose. Follow the instructions [here](https://docs.docker.com/compose/install/).
 
 ##### Clone Recursively
 This repo uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). In order to clone everything correctly, you have to clone recursively:
@@ -13,7 +14,10 @@ cd lecture-viewer
 More useful commands for git submodules can be found in [Repository Maintenence](#repository-maintenance) below.
 
 ##### Environment File
-This application uses environment variables to make it easier to deploy at different locations. You will need to create a file named `.env` in this directory for deployment to work properly. An example file is provided at `example.env`.
+This application uses environment variables to make it easier to deploy at different locations.
+You can either run `scrips/setup.sh` (currently only compatible with linux and osx based machines)
+or you will need to create a file named `.env` in this directory for deployment to work properly.
+An example file is provided at `example.env`.
 
 If you decide to run any services manually, make sure to use the same `.env` file.
 
@@ -26,7 +30,9 @@ docker-compose up
 Everything will be exposed on port 80!
 
 ### To Run (Development)
-We made a development docker-compose file that can be used in some development scenarios. It will keep the ```lv-client/public/javascripts``` folder and all of ```lv-server``` up to date. To use this environment, run the following commands:
+We made a development docker-compose file that can be used in some development scenarios.
+It will keep the `lv-client/public/client`, all of `lv-server` and `lv-media` up to date.
+To use this environment, run `scripts/dev_startup.sh` or run the following commands:
 ```
 docker-compose -f docker-compose.yml -f docker-compose-development.yml build
 docker-compose -f docker-compose.yml -f docker-compose-development.yml up
