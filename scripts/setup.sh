@@ -35,7 +35,7 @@ MYSQL_USER=root
 
 # lv-media
 HOST_MEDIA_DIR=${host_media_dir}
-IMAGE_MEDIA_DIR=~/media
+IMAGE_MEDIA_DIR=/media
 MEDIA_SERVER_PORT=5000
 
 # lv-server
