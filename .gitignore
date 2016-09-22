@@ -1,5 +1,6 @@
 # env file
-lecture-viewer.env
+.env
 .idea
 *.iml
 npm-debug.log
+.DS_Store

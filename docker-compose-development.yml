@@ -3,9 +3,9 @@
 # docker-compose -f docker-compose.yml -f docker-compose-development.yml up
 
 # Important Notes:
-# - lv-client only keeps /public/javascripts up to date.
 # - lv-server uses nodemon in "legacy mode", aka "-L". This is resource
 #   intensive however required for boot2docker users (non-linux).
+# - We run everything with elevated permisions, i.e. "privileged", DO NOT USE THIS IN PROD.
 
 version: '2'
 
@@ -14,9 +14,8 @@ services:
     build:
       dockerfile: Dockerfile-development
     volumes:
-      - ./lv-client:/src
-      # So we don't share node modules
-      - /src/node_modules
+      - ./lv-client/client:/src/client
+      - ./lv-client/server:/src/server
     privileged: true
 
   lv-client-watch:
@@ -24,9 +23,9 @@ services:
       context: lv-client/
       dockerfile: Dockerfile-development
     command: npm run watch
-    env_file: lecture-viewer.env
     volumes:
-      - ./lv-client:/src
+      - ./lv-client/client:/src/client
+      - ./lv-client/server:/src/server
     privileged: true
 
   lv-server:
@@ -34,11 +33,11 @@ services:
       dockerfile: Dockerfile-development
     volumes:
       - ./lv-server:/src
-      # So we don't share node modules
-      - /src/node_modules
+    privileged: true
 
   lv-media:
     build:
       dockerfile: Dockerfile-development
     volumes:
       - ./lv-media:/src
+    privileged: true
