@@ -90,3 +90,13 @@ docker rmi $(docker images -q)
 # remove dangling volumes
 docker volume rm $(docker volume ls -qf dangling=true)
 ```
+
+
+##### Doing things without Docker (an incomplete documentation)
+
+1. Have a mysql server up and running, with a `lecture_viewer` database created.
+2. Import the SQL scaffold 
+```bash
+mysql -uroot lecture_viewer < lv-db/db-structure.sql
+```
+3. `source .env`
