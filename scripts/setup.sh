@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-cd $(dirname $(realpath $0)) # So we're at the script location
+OS_NAME=$(uname -s)
+cd $(cd -P -- "$(dirname -- "$0")" && pwd -P) # So we're at the script location
 
 if [ -f ../.env ]; then
   echo "File .env already exists!"
   read -r -p "Would you like to create a new one? [y/N] " create
-  create=${create,,}  # to lower
+  create=$(echo "$create" | tr '[:upper:]' '[:lower:]')   # to lower
   if [[ ${create} =~ ^(yes|y)$ ]]; then
     rm ../.env
     touch ../.env
@@ -14,13 +15,17 @@ if [ -f ../.env ]; then
   fi
 fi
 
-
 read -r -p "Enter a password for the database. Defaults to 'banana': " mysql_root_pw
 : ${mysql_root_pw:=banana}
 read -r -p "Enter a location for media directory relative to the root directory. Defaults to '/media/lecture_viewer': " host_media_dir
 : ${host_media_dir:=/media/lecture_viewer}
 read -r -p "Enter a custom signing key (not suggested). Defaults to 32 character random string: " signing_key
-UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+
+if [ "$OS_NAME" == Linux ]; then
+  UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+else
+  UUID=$(cat /dev/urandom | env LC_CTYPE=C tr -cd 'a-zA-Z0-9' | head -c 32)
+fi
 : ${signing_key:=${UUID}}
 
 echo "Generating .env file"
