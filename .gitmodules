@@ -1,15 +1,20 @@
 [submodule "lv-server"]
 	path = lv-server
 	url = https://github.com/ripples/lv-server.git
+	branch = master
 [submodule "lv-client"]
 	path = lv-client
 	url = https://github.com/ripples/lv-client.git
+	branch = master
 [submodule "lv-proxy"]
 	path = lv-proxy
 	url = https://github.com/ripples/lv-proxy.git
+	branch = master
 [submodule "lv-db"]
 	path = lv-db
 	url = https://github.com/ripples/lv-db.git
+	branch = master
 [submodule "lv-media"]
 	path = lv-media
 	url = https://github.com/ripples/lv-media.git
+	branch = master
