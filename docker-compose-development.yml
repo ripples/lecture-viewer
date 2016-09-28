@@ -14,7 +14,7 @@ services:
     build:
       dockerfile: Dockerfile-development
     volumes:
-      - ./lv-client/client/src:/src/client/src
+      - ./lv-client/client:/src/client
       - ./lv-client/server:/src/server
     privileged: true
 
