@@ -17,16 +17,27 @@ fi
 
 read -r -p "Enter a password for the database. Defaults to 'banana': " mysql_root_pw
 : ${mysql_root_pw:=banana}
+
 read -r -p "Enter a location for media directory relative to the root directory. Defaults to '/media/lecture_viewer': " host_media_dir
 : ${host_media_dir:=/media/lecture_viewer}
-read -r -p "Enter a custom signing key (not suggested). Defaults to 32 character random string: " signing_key
 
+read -r -p "Enter a custom signing key (not suggested). Defaults to 32 character random string: " signing_key
 if [ "$OS_NAME" == Linux ]; then
   UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 else
   UUID=$(cat /dev/urandom | env LC_CTYPE=C tr -cd 'a-zA-Z0-9' | head -c 32)
 fi
 : ${signing_key:=${UUID}}
+
+read -r -p "Enter a location for school logo relative to the root directory: " school_logo
+school_logo=$(eval echo ${school_logo})
+if [[ ! ${school_logo} ]]; then
+    echo "WARNING: school logo file not specified"
+elif [ ! -e ${filename} ]; then
+      echo "WARNING: school logo file cannot be found."
+else
+    cp ${school_logo} ../lv-client/client/src/images/logo.png
+fi
 
 echo "Generating .env file"
 cat > ../.env <<- env_file
@@ -45,6 +56,9 @@ MEDIA_SERVER_PORT=5000
 
 # lv-server
 API_VERSION=v1
+
+# lv-client
+SCHOOL_LOGO_PATH=${school_logo}
 
 ### Temporary until I think of a good solution
 SEMESTER=S16
