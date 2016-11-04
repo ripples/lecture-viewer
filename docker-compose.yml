@@ -18,6 +18,10 @@ services:
     build: lv-media
     env_file:
       - .env
+    depends_on:
+      - lv-db
+    networks:
+      - database
     volumes:
       - ${HOST_MEDIA_DIR}:/${IMAGE_MEDIA_DIR}
 
