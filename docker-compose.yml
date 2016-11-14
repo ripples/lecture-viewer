@@ -23,7 +23,7 @@ services:
     networks:
       - database
     volumes:
-      - ${HOST_MEDIA_DIR}:/${IMAGE_MEDIA_DIR}
+      - ${HOST_MEDIA_DIR}:/media
 
   lv-proxy:
     build: lv-proxy
@@ -35,7 +35,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ${HOST_MEDIA_DIR}:/${IMAGE_MEDIA_DIR}
+      - ${HOST_MEDIA_DIR}:/media
 
   lv-server:
     build: lv-server

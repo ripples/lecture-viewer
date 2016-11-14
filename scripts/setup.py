@@ -45,7 +45,9 @@ if school_logo.is_file():
 else:
     print("WARNING: school logo file does not exist")
 
-users_csv_path = Path(input("Enter a location for users csv path relative to lv-media: ")).expanduser()
+users_csv_path = Path(
+    input("Enter a location for users csv path relative to {}, previously provided directory: "
+          .format(host_media_dir))).expanduser()
 if not Path("../lv-media", users_csv_path).is_file():
     print("WARNING: users csv file does not exist")
     users_csv_path = ""
@@ -61,7 +63,6 @@ MYSQL_USER=root
 
 # lv-media
 HOST_MEDIA_DIR={host_media_dir}
-IMAGE_MEDIA_DIR=/media
 MEDIA_SERVER_PORT=5000
 USERS_CSV_PATH={users_csv_path}
 
