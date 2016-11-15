@@ -17,6 +17,7 @@ def prompt(text):
     else:
         return False
 
+
 if env_file.exists():
     print("File .env already exists!")
     if prompt("Would you like to create a new one? [y/N]"):
@@ -39,16 +40,18 @@ signing_key = input("Enter a custom signing key (not suggested). Defaults to 64 
 if not signing_key:
     signing_key = hexlify(os.urandom(32)).decode()
 
-school_logo = Path(input("Enter a location for school logo relative to the root directory: ")).expanduser()
+school_logo = host_media_dir.joinpath(Path(
+    input("Enter a location for school logo to previously provided media directory {}/"
+          .format(host_media_dir))).expanduser())
 if school_logo.is_file():
-    shutil.copy(str(school_logo), "../lv-client/client/src/images/logo.png")
+    shutil.copy((str(school_logo)), "../lv-client/client/src/images/logo.png")
 else:
     print("WARNING: school logo file does not exist")
 
 users_csv_path = Path(
-    input("Enter a location for users csv path relative to {}, previously provided directory: "
+    input("Enter a location for users csv path relative to previously provided media directory {}/"
           .format(host_media_dir))).expanduser()
-if not Path("../lv-media", users_csv_path).is_file():
+if not host_media_dir.joinpath(users_csv_path).is_file():
     print("WARNING: users csv file does not exist")
     users_csv_path = ""
 
@@ -73,6 +76,5 @@ API_VERSION=v1
 
 # lv-client
 CLIENT_HOSTNAME=lv-client
-SCHOOL_LOGO_PATH={school_logo}
 """.format(signing_key=signing_key, mysql_root_pw=mysql_root_pw, host_media_dir=host_media_dir,
-           users_csv_path=users_csv_path, school_logo=school_logo))
+           users_csv_path=users_csv_path))
