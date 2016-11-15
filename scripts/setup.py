@@ -56,23 +56,23 @@ print("Generating .env file")
 env_file.write_text("""SIGNING_KEY={signing_key}
 
 # lv-db
+MYSQL_HOSTNAME=lv-db
 MYSQL_ROOT_PASSWORD={mysql_root_pw}
 MYSQL_DATABASE=lecture_viewer
-MYSQL_HOSTNAME=lv-db
 MYSQL_USER=root
 
 # lv-media
+MEDIA_HOSTNAME=lv-media
 HOST_MEDIA_DIR={host_media_dir}
 MEDIA_SERVER_PORT=5000
 USERS_CSV_PATH={users_csv_path}
 
 # lv-server
+SERVER_HOSTNAME=lv-server
 API_VERSION=v1
 
 # lv-client
+CLIENT_HOSTNAME=lv-client
 SCHOOL_LOGO_PATH={school_logo}
-
-### Temporary until I think of a good solution
-SEMESTER=S16
 """.format(signing_key=signing_key, mysql_root_pw=mysql_root_pw, host_media_dir=host_media_dir,
            users_csv_path=users_csv_path, school_logo=school_logo))
