@@ -55,6 +55,8 @@ if not host_media_dir.joinpath(users_csv_path).is_file():
     print("WARNING: users csv file does not exist")
     users_csv_path = ""
 
+client_url = input("Enter the host url for the Lecture Viewer. Defaults to 'http://localhost': ") or "http://localhost"
+
 print("Generating .env file")
 env_file.write_text("""SIGNING_KEY={signing_key}
 
@@ -76,5 +78,7 @@ API_VERSION=v1
 
 # lv-client
 CLIENT_HOSTNAME=lv-client
+CLIENT_BASE_URL={client_url}
+SCHOOL_LOGO_PATH={school_logo}
 """.format(signing_key=signing_key, mysql_root_pw=mysql_root_pw, host_media_dir=host_media_dir,
-           users_csv_path=users_csv_path))
+           users_csv_path=users_csv_path, client_url=client_url, school_logo=school_logo))
