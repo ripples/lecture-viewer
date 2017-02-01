@@ -1,3 +1,5 @@
+from getpass import getuser
+
 from .defaults import defaults
 
 _windows_defaults = {

@@ -10,10 +10,12 @@ unix = False
 
 if platform == "linux" or platform == "linux2" or platform == "darwin":
     from .unix_defaults import defaults
+
     defaults = defaults
     unix = True
 elif platform == "win32":
-    from .unix_defaults import defaults
+    from .windows_defaults import defaults
+
     defaults = defaults
 
 
@@ -25,12 +27,11 @@ def _prompt(text):
         return False
 
 
-def _request_input(text, env=None, password=False, warning=None, display_default=True):
+def _request_input(text, env=None, password=False, display_default=True):
     default = defaults[env] if env else None
     prompt_text = "{} | Defaults to {}: ".format(text, default) if default and display_default else text
 
     result = (getpass(prompt_text) if password else input(prompt_text)) or default
-    print(warning) if warning else None
 
     if env:
         envs[env] = result
@@ -40,7 +41,7 @@ def _request_input(text, env=None, password=False, warning=None, display_default
 def setup():
     def setup_mailer():
         if not (_request_input("Enter a gmail mailer username: ", env="MAILER_USER") or
-                    _request_input("Enter a gmail mailer password: ", env="MAILER_PASSWORD", password=True)):
+                _request_input("Enter a gmail mailer password: ", env="MAILER_PASSWORD", password=True)):
             print("WARNING: both a mailer username and password is needed to send emails")
 
     def setup_db():
