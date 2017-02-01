@@ -1,5 +1,6 @@
 import os
 import subprocess
+from sys import exit
 from binascii import hexlify
 
 defaults = {}
@@ -7,7 +8,15 @@ defaults = {}
 
 def _configure_defaults():
     global defaults
-    p = subprocess.Popen(["docker-machine", "ip"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        p = subprocess.Popen(["docker-machine", "ip"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except FileNotFoundError as e:
+        try:
+            p = subprocess.Popen(["docker"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except FileNotFoundError as e:
+            print("ERROR: Either docker or docker-toolbox must be installed")
+            exit()
+
     docker_toolbox = not bool(p.stderr.read())
 
     defaults = {
