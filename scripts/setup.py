@@ -4,8 +4,8 @@ import sys
 
 from pathlib import Path
 
-if sys.version_info < (3, 0):
-    raise SystemExit("Sorry, this code need Python 3.0 or higher")
+if sys.version_info < (3, 4):
+    raise SystemExit("Sorry, this code need Python 3.4 or higher")
 else:
     try:
         next(filter(lambda file: file.name == "docker-compose.yml", Path(os.getcwd()).glob("*")))
