@@ -1,14 +1,14 @@
 from getpass import getpass
 from pathlib import Path
 from sys import platform, exit
-import os
+from os import makedirs, mkdir, path
 import shutil
 
 env_file = Path(".env")
 envs = {}
 unix = False
 
-if platform == "linux" or platform == "linux2" or platform == "darwin":
+if platform.startswith("linux") or platform == "darwin":
     from .unix_defaults import defaults
 
     defaults = defaults
@@ -27,11 +27,14 @@ def _prompt(text):
         return False
 
 
-def _request_input(text, env=None, password=False, display_default=True):
+def _request_input(text, env=None, password=False, with_path=False, display_default=True):
     default = defaults[env] if env else None
     prompt_text = "{} | Defaults to {}: ".format(text, default) if default and display_default else text
 
     result = (getpass(prompt_text) if password else input(prompt_text)) or default
+
+    if with_path:
+        result = Path(path.expanduser(Path(result).name))
 
     if env:
         envs[env] = result
@@ -48,30 +51,28 @@ def setup():
         _request_input("Enter password for the database", env="MYSQL_ROOT_PASSWORD", password=True)
 
     def setup_media_dir():
-        host_media_dir = Path(_request_input(
-            "Enter a location for media directory relative to the root directory.", env="HOST_MEDIA_DIR"
-        )).expanduser()
-
-        envs["HOST_MEDIA_DIR"] = host_media_dir
+        host_media_dir = _request_input(
+            "Enter a location for media directory relative to the root directory.", env="HOST_MEDIA_DIR", with_path=True
+        )
         if not (host_media_dir.exists() and host_media_dir.is_dir()):
             print("{} not found, creating directory".format(host_media_dir))
-            os.makedirs(host_media_dir)
+            makedirs(str(host_media_dir))
 
         return host_media_dir
 
     def setup_media_files(host_media_dir):
-        school_logo = host_media_dir.joinpath(Path(_request_input(
+        school_logo = host_media_dir.joinpath(_request_input(
             "Enter a location for school logo path relative to previously provided media directory '{}'".format(
-                host_media_dir), env="SCHOOL_LOGO_PATH")).expanduser())
+                host_media_dir), env="SCHOOL_LOGO_PATH", with_path=True))
 
         if school_logo.is_file():
             shutil.copy((str(school_logo)), "./lv-client/client/src/images/logo.png")
         else:
             print("WARNING: school logo file does not exist")
 
-        users_csv_path = Path(_request_input(
+        users_csv_path = _request_input(
             "Enter a location for users csv path relative to previously provided media directory '{}'".format(
-                host_media_dir), env="USERS_CSV_PATH")).expanduser()
+                host_media_dir), env="USERS_CSV_PATH", with_path=True)
         if not host_media_dir.joinpath(users_csv_path).is_file():
             print("WARNING: users csv file does not exist")
 
@@ -96,7 +97,8 @@ def setup():
     setup_media_files(media_dir)
     print("Generating .env file")
 
-    env_file.write_text("""SIGNING_KEY={SIGNING_KEY}
+    with env_file.open(mode="w") as file:
+        file.write("""SIGNING_KEY={SIGNING_KEY}
 NODE_ENV={NODE_ENV}
 
 # lv-db
@@ -124,4 +126,4 @@ SCHOOL_LOGO_PATH={SCHOOL_LOGO_PATH}
 """.format(**defaults))
 
     if not envs["NODE_ENV"] == "production" and not Path(media_dir, "F16").exists():
-        os.mkdir(str(Path(media_dir, "F16")))
+        mkdir(str(Path(media_dir, "F16")))
