@@ -43,7 +43,7 @@ def _request_input(text, env=None, password=False, with_path=False, display_defa
 
 def setup():
     def setup_mailer():
-        if not (_request_input("Enter a gmail mailer username: ", env="MAILER_USER") or
+        if not (_request_input("Enter a gmail mailer username: ", env="MAILER_USER") and
                 _request_input("Enter a gmail mailer password: ", env="MAILER_PASSWORD", password=True)):
             print("WARNING: both a mailer username and password is needed to send emails")
 
