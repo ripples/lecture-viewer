@@ -34,7 +34,7 @@ def _request_input(text, env=None, password=False, with_path=False, display_defa
     result = (getpass(prompt_text) if password else input(prompt_text)) or default
 
     if with_path:
-        result = Path(path.expanduser(Path(result).name))
+        result = Path(path.expanduser(str(Path(result))))
 
     if env:
         envs[env] = result
