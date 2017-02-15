@@ -12,7 +12,7 @@ services:
       - .env
     networks:
       - database
-    privileged: true # We need elevated accesss to read root files
+    privileged: true # We need elevated access to read root files
 
   lv-media:
     build: lv-media

@@ -78,7 +78,7 @@ def setup():
 
     def setup_miscellaneous():
         envs["NODE_ENV"] = "production" if _prompt("Is this a production environment?") else defaults["NODE_ENV"]
-        _request_input("Enter a custom signing key (not suggested). Defaults to 64 character random string: ",
+        _request_input("Enter a custom signing key (not suggested). | Defaults to 64 character random string: ",
                        env="SIGNING_KEY", display_default=False)
         _request_input("Enter the host url for the Lecture Viewer.", env="CLIENT_BASE_URL")
 
@@ -115,6 +115,7 @@ USERS_CSV_PATH={USERS_CSV_PATH}
 
 # lv-server
 SERVER_HOSTNAME=lv-server
+SERVER_PORT=3000
 API_VERSION=v1
 MAILER_USER={MAILER_USER}
 MAILER_PASSWORD={MAILER_PASSWORD}
@@ -123,7 +124,7 @@ MAILER_PASSWORD={MAILER_PASSWORD}
 CLIENT_HOSTNAME=lv-client
 CLIENT_BASE_URL={CLIENT_BASE_URL}
 SCHOOL_LOGO_PATH={SCHOOL_LOGO_PATH}
-""".format(**defaults))
+""".format(**envs))
 
     if not envs["NODE_ENV"] == "production" and not Path(media_dir, "F16").exists():
         mkdir(str(Path(media_dir, "F16")))
