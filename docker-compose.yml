@@ -3,6 +3,8 @@ version: '2'
 services:
   lv-client:
     build: lv-client
+    depends_on:
+      - lv-server
     env_file:
       - .env
 
