@@ -14,7 +14,6 @@ services:
       - .env
     networks:
       - database
-    privileged: true # We need elevated access to read root files
 
   lv-media:
     build: lv-media
@@ -55,6 +54,3 @@ networks:
   database:
     driver: bridge
 
-volumes:
-  mysql-data:
-    driver: local
