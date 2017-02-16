@@ -22,7 +22,7 @@ services:
     build:
       context: lv-client/
       dockerfile: Dockerfile-development
-    command: npm run watch
+    command: yarn run watch
     volumes:
       - ./lv-client/client:/src/client
       - ./lv-client/server:/src/server
