@@ -27,8 +27,8 @@ def _configure_defaults():
         "MAILER_PASSWORD": "",
         "CLIENT_BASE_URL": "http://{}".format(p.stdout.read().decode("utf-8").rstrip()
                                               if docker_toolbox else "localhost"),
-        "USERS_CSV_PATH": "users.csv",
         "SCHOOL_LOGO_PATH": "logo.png",
+        "DEV_EMAIL": ""
     }
 
 
