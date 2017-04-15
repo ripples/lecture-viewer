@@ -87,7 +87,7 @@ def setup():
             "Enter a location for splash screen path relative to resources directory '{}'".format(resources_dir),
             with_path=True, env="SPLASH_SCREEN_PATH"))
         if splash_screen.is_file():
-            shutil.copy((str(school_logo)), "./lv-client/client/src/images/splash.jpg")
+            shutil.copy((str(splash_screen)), "./lv-client/client/src/images/splash.jpg")
         else:
             print("WARNING: splash screen file does not exist")
 
