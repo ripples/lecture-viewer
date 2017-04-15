@@ -78,11 +78,18 @@ def setup():
         school_logo = resources_dir.joinpath(_request_input(
             "Enter a location for school logo path relative to resources directory '{}'".format(resources_dir),
             with_path=True, env="SCHOOL_LOGO_PATH"))
-
         if school_logo.is_file():
             shutil.copy((str(school_logo)), "./lv-client/client/src/images/logo.png")
         else:
             print("WARNING: school logo file does not exist")
+
+        splash_screen = resources_dir.joinpath(_request_input(
+            "Enter a location for splash screen path relative to resources directory '{}'".format(resources_dir),
+            with_path=True, env="SPLASH_SCREEN_PATH"))
+        if splash_screen.is_file():
+            shutil.copy((str(school_logo)), "./lv-client/client/src/images/splash.jpg")
+        else:
+            print("WARNING: splash screen file does not exist")
 
     def setup_miscellaneous():
         envs["NODE_ENV"] = "production" if _prompt("Is this a production environment?") else defaults["NODE_ENV"]

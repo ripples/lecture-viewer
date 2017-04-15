@@ -28,6 +28,7 @@ def _configure_defaults():
         "CLIENT_BASE_URL": "http://{}".format(p.stdout.read().decode("utf-8").rstrip()
                                               if docker_toolbox else "localhost"),
         "SCHOOL_LOGO_PATH": "logo.png",
+        "SPLASH_SCREEN_PATH": "splash.jpg",
         "DEV_EMAIL": ""
     }
 
