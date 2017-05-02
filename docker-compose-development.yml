@@ -5,7 +5,7 @@
 # Important Notes:
 # - lv-server uses nodemon in "legacy mode", aka "-L". This is resource
 #   intensive however required for boot2docker users (non-linux).
-# - We run everything with elevated permisions, i.e. "privileged", DO NOT USE THIS IN PROD.
+# - We run everything with elevated permissions, i.e. "privileged", DO NOT USE THIS IN PROD.
 
 version: '2'
 

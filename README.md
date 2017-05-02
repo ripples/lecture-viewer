@@ -1,5 +1,8 @@
 # Lecture Viewer
 
+The front facing application for the [paol](https://github.com/ripples/paol) capturing system. 
+This application allows for lectures recorded by paol to be viewed online in a consumable format.
+
 ### Getting Started
 ##### Docker
 To get started, you first need to install docker. Instructions for installing docker can be found [here](https://docs.docker.com/engine/installation/).
@@ -15,17 +18,16 @@ More useful commands for git submodules can be found in [Repository Maintenence]
 
 ##### Environment File
 This application uses environment variables to make it easier to deploy at different locations.
-You can either run `scrips/setup.sh` (currently only compatible with linux and osx based machines)
-or you will need to create a file named `.env` in this directory for deployment to work properly.
-An example file is provided at `example.env`.
+You can either run `scrips/setup.py` or you will need to create a file named `.env` in this directory for deployment to work properly.
+An example file .env file is provided at `example.env`.
 
 If you decide to run any services manually, make sure to use the same `.env` file.
 
 ### To Run (Production)
-After your environment is all set up, simply run the following commands:
+After your environment is all set up, simply run the following fill `scripts/prod_startup.sh` or the following commands:
 ```
 docker-compose build
-docker-compose up
+docker-compose up -d
 ```
 Everything will be exposed on port 80!
 
@@ -41,19 +43,38 @@ Everything will be exposed on port 80!
 
 ### Repository Maintenance
 For those of you who are not using a GUI to interact with git, here are some useful commands:
-```
-# after checking out a commit (for example git pull master), this updates your submodules
-git submodule update --recursive
+ * After checking out a commit (for example git pull master), this updates your submodules
+    ```
+    git submodule update --recursive
+    ```
 
-# if you checked out a commit and it added a new submodule, run this command before doing anything else
-# it initializes the submodule so commands like the above one will work
-git submodule init
+ * If you checked out a commit and it added a new submodule, run this command before doing anything else. 
+ It initializes the submodule so commands like the above one will work
+    ```
+    git submodule init
+    ```
 
-# these commands will pull from master for each submodule
-git fetch --recurse-submodules
-git submodule foreach git pull origin master
-git pull
-```
+ * These commands will pull from master for each submodule
+    ```
+    git fetch --recurse-submodules
+    git submodule foreach git pull origin master
+    git pull
+    ```
+
+### Production Maintenance
+Some tips on maintaining a production environment
+ * Make sure you are very familiar with how docker works before doing anything
+ * If a container is down you can start it up again via
+    ```
+    docker-compose <service name> -d
+    ```
+ * To update a container follow these steps
+    * WARNING: Do not remove lv-db containers until [#53](/../../issues/53) has been resolved
+    1. Kill the container: `docker kill <container id>`
+    2. Remove the container `docker rm <container id>`
+    3. Remove the image `docker rmi <image id>`
+    4. Pull repository `git pull`
+    5. Start container `docker-compose up <service name> -d`
 
 ### Troubleshooting
 ###### "Help! docker-compose says files are missing!"
@@ -90,13 +111,3 @@ docker rmi $(docker images -q)
 # remove dangling volumes
 docker volume rm $(docker volume ls -qf dangling=true)
 ```
-
-
-##### Doing things without Docker (an incomplete documentation)
-
-1. Have a mysql server up and running, with a `lecture_viewer` database created.
-2. Import the SQL scaffold 
-```bash
-mysql -uroot lecture_viewer < lv-db/db-structure.sql
-```
-3. `source .env`
