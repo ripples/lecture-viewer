@@ -6,12 +6,12 @@ It allows for lectures recorded by paol to be viewed online in a consumable form
 
 
 ### Getting Started
-##### Docker
+#### Docker
 To get started, you first need to install docker. Instructions for installing docker can be found [here](https://docs.docker.com/engine/installation/).
 After you have docker installed, you will need to install docker compose. Follow the instructions [here](https://docs.docker.com/compose/install/).
 
 
-##### Clone Recursively
+#### Clone Recursively
 This repo uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). In order to clone everything correctly, you have to clone recursively:
 ```
 git clone --recursive https://github.com/ripples/lecture-viewer.git
@@ -23,7 +23,7 @@ git clone --recursive git@github.com:ripples/lecture-viewer.git
 More useful commands for git submodules can be found in [Repository Maintenence](#repository-maintenance) below.
 
 
-##### Environment File
+#### Environment File
 This application uses environment variables to make it easier to deploy at different locations.
 You can either run `scrips/setup.py` or you will need to create a file named `.env` in this directory for deployment to work properly.
 An example file .env file is provided at `example.env`.
@@ -89,21 +89,21 @@ Some tips on maintaining a production environment
 
 
 ### Troubleshooting
-###### "Help! docker-compose says files are missing!"
+##### "Help! docker-compose says files are missing!"
 9 times out of 10 this is due to not updating your submodules when changing commits. Assuming you did a recursive clone of this repo, just run:
 ```
 git submodule update --recursive
 ```
 
 
-###### "Help! docker-compose fails at npm install!"
+##### "Help! docker-compose fails at npm install!"
 You most likely are running docker on Mac or Windows and have recently switched internet connections. When you switch internet connections while your docker-machine is still running, it looses it's connection. Assuming your docker-machine is called default, run:
 ```
 docker-machine restart default
 ```
 
 
-###### "Help! I tried updating my submodules recursively but the submodule folder(s) are empty!"
+##### "Help! I tried updating my submodules recursively but the submodule folder(s) are empty!"
 When a new submodule is added to the system and you would like to pull it onto your machine, you must first init the submodule before you are able to update it.
 ```
 git submodule init
@@ -111,7 +111,7 @@ git submodule update --recursive
 ```
 
 
-###### "Help! When I try to build with docker, I get a `no space left on device` error!"
+##### "Help! When I try to build with docker, I get a `no space left on device` error!"
 After a while docker can become cluttered with old containers, images, and volumes. You can remove some manually to get unblocked, or you can use some of the following commands to remove them in bulk. Be careful not to remove anything important!
 ```
 # delete stopped containers
