@@ -1,6 +1,7 @@
 # env file
 .env
 .idea
+.vscode
 *.iml
 npm-debug.log
 .DS_Store
