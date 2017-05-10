@@ -41,6 +41,7 @@ def _request_input(text, env=None, password=False, with_path=False, display_defa
     return result
 
 
+
 def setup():
     def setup_mailer():
         mailer_user = _request_input("Enter a gmail mailer username: ", env="MAILER_USER")
@@ -73,6 +74,11 @@ def setup():
             makedirs(str(inserted_users))
 
         return host_media_dir, users_dir, resources_dir
+
+    def prompt_media_dir_setup():
+        input("Insert school logo into {} | Press [Enter] to continue".format(resources_dir))
+        input("Insert splash screen into {} | Press [Enter] to continue".format(resources_dir))
+        input("Insert user files into {} | Press [Enter] to continue".format(users_dir))
 
     def setup_resources_files(resources_dir):
         school_logo = resources_dir.joinpath(_request_input(
@@ -113,6 +119,7 @@ def setup():
     setup_mailer()
     setup_db()
     media_dir, users_dir, resources_dir = setup_media_dir()
+    prompt_media_dir_setup()
     setup_resources_files(resources_dir)
 
     if envs["NODE_ENV"] == "development":
